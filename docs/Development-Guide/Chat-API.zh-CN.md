@@ -55,7 +55,7 @@ export const createChatCompletion = async ({ payload, openai }: CreateChatComple
 
 ### 前端集成
 
-在 `src/services/chatModel.ts` 文件中，我们定义了 `fetchChatModel` 方法，该方法首先对 payload 数据进行前置处理，然后发送 POST 请求到后端的 `/chat` 接口，并将请求结果返回。
+在 `src/services/chatModel.ts` 文件中，我们定义了 `fetchChatModel` 方法，该方法首先对 payload 数据进行前置处理，然后发送 POST 请求到后端的 `/classes/chat` 接口，并将请求结果返回。
 
 ```ts
 export const fetchChatModel = (

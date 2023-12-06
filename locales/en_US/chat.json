@@ -1,5 +1,5 @@
 {
-  "agentDefaultMessage": "Hello, I'm **{{name}}**. You can start chatting with me right away or go to [Agent Settings](/chat/settings#session={{id}}) to improve my information.",
+  "agentDefaultMessage": "Hello, I'm **{{name}}**. You can start chatting with me right away or go to [Agent Settings](/classes/chat/settings#session={{id}}) to improve my information.",
   "agentDefaultMessageWithSystemRole": "Hello, I'm **{{name}}**, {{systemRole}}. Let's start the conversation!",
   "backToBottom": "Go to Latest Messages",
   "clearCurrentMessages": "Clear Current Session Messages",

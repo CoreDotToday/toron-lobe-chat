@@ -31,7 +31,7 @@ export default memo<{ className?: string }>(({ className }) => {
         key: SidebarTabKey.Chat,
         onClick: () => {
           setTab(SidebarTabKey.Chat);
-          router.push('/chat');
+          router.push('/classes/chat');
         },
         title: t('tab.chat'),
       },

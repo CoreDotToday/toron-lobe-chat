@@ -1,5 +1,5 @@
 {
-  "agentDefaultMessage": "こんにちは、私は **{{name}}** です。すぐに会話を始めることができますし、[エージェント設定](/chat/settings#session={{id}}) に移動して私の情報を充実させることもできます。",
+  "agentDefaultMessage": "こんにちは、私は **{{name}}** です。すぐに会話を始めることができますし、[エージェント設定](/classes/chat/settings#session={{id}}) に移動して私の情報を充実させることもできます。",
   "agentDefaultMessageWithSystemRole": "こんにちは、私は **{{name}}** です、{{systemRole}}、さあ、会話を始めましょう！",
   "backToBottom": "最新のメッセージを表示",
   "clearCurrentMessages": "現在の会話メッセージをクリア",

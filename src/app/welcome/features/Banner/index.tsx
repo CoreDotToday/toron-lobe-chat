@@ -46,7 +46,7 @@ const Banner = memo<{ mobile?: boolean }>(({ mobile }) => {
         </DataImporter>
         <Button
           block={mobile}
-          onClick={() => (isMobile ? router?.push('/chat') : switchBackToChat())}
+          onClick={() => (isMobile ? router?.push('/classes/chat') : switchBackToChat())}
           size={'large'}
           type={'primary'}
         >

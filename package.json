@@ -67,6 +67,7 @@
   },
   "dependencies": {
     "@ant-design/icons": "^5",
+    "@clerk/nextjs": "^4.27.3",
     "@icons-pack/react-simple-icons": "^9",
     "@lobehub/chat-plugin-sdk": "latest",
     "@lobehub/chat-plugins-gateway": "latest",
