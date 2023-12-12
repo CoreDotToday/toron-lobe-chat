@@ -3,7 +3,7 @@ import { Button } from 'antd';
 import { Loader2, SendHorizonal } from 'lucide-react';
 import { memo } from 'react';
 
-import { useSendMessage } from '@/app/classes/chat/features/ChatInput/useSend';
+import { useSendMessage } from '@/app/classes/[classUid]/chat/features/ChatInput/useSend';
 import { useChatStore } from '@/store/chat';
 
 const SendButton = memo(() => {

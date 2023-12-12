@@ -6,8 +6,8 @@ import { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Flexbox } from 'react-layout-kit';
 
-import SaveTopic from '@/app/classes/chat/features/ChatInput/Topic';
-import { useSendMessage } from '@/app/classes/chat/features/ChatInput/useSend';
+import SaveTopic from '@/app/classes/[classUid]/chat/features/ChatInput/Topic';
+import { useSendMessage } from '@/app/classes/[classUid]/chat/features/ChatInput/useSend';
 import { useChatStore } from '@/store/chat';
 import { useSessionStore } from '@/store/session';
 import { agentSelectors } from '@/store/session/selectors';

@@ -3,11 +3,11 @@ import { rgba } from 'polished';
 import { memo } from 'react';
 import { Flexbox } from 'react-layout-kit';
 
-import Files from '@/app/classes/chat/(mobile)/features/ChatInput/Files';
-import ActionBar from '@/app/classes/chat/features/ChatInput/ActionBar';
-import InputAreaInner from '@/app/classes/chat/features/ChatInput/InputAreaInner';
-import STT from '@/app/classes/chat/features/ChatInput/STT';
-import SaveTopic from '@/app/classes/chat/features/ChatInput/Topic';
+import Files from '@/app/classes/[classUid]/chat/(mobile)/features/ChatInput/Files';
+import ActionBar from '@/app/classes/[classUid]/chat/features/ChatInput/ActionBar';
+import InputAreaInner from '@/app/classes/[classUid]/chat/features/ChatInput/InputAreaInner';
+import STT from '@/app/classes/[classUid]/chat/features/ChatInput/STT';
+import SaveTopic from '@/app/classes/[classUid]/chat/features/ChatInput/Topic';
 
 import SendButton from './SendButton';
 

@@ -2,7 +2,7 @@
 
 import { PropsWithChildren, memo } from 'react';
 
-import SessionHeader from '@/app/classes/chat/(mobile)/features/SessionHeader';
+import SessionHeader from '@/app/classes/[classUid]/chat/(mobile)/features/SessionHeader';
 import AppLayoutMobile from '@/layout/AppLayout.mobile';
 import { useSwitchSideBarOnInit } from '@/store/global';
 import { SidebarTabKey } from '@/store/global/initialState';

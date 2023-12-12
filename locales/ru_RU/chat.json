@@ -1,5 +1,5 @@
 {
-  "agentDefaultMessage": "Привет, я **{{name}}**, ты можешь начать разговор со мной прямо сейчас или перейти к [настройкам помощника](/classes/chat/settings#session={{id}}), чтобы улучшить мою информацию.",
+  "agentDefaultMessage": "Привет, я **{{name}}**, ты можешь начать разговор со мной прямо сейчас или перейти к [настройкам помощника](/classes/{{class_uid}}/chat/settings#session={{id}}), чтобы улучшить мою информацию.",
   "agentDefaultMessageWithSystemRole": "Привет, я **{{name}}**, {{systemRole}}, давай начнем разговор!",
   "backToBottom": "К последнему сообщению",
   "clearCurrentMessages": "Очистить текущий разговор",

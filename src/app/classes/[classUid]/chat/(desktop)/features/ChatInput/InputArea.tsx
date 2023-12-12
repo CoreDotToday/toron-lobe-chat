@@ -1,7 +1,7 @@
 import { createStyles } from 'antd-style';
 import { memo } from 'react';
 
-import InputAreaInner from '@/app/classes/chat/features/ChatInput/InputAreaInner';
+import InputAreaInner from '@/app/classes/[classUid]/chat/features/ChatInput/InputAreaInner';
 
 const useStyles = createStyles(({ css }) => {
   return {

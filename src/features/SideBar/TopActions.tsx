@@ -25,7 +25,7 @@ const TopActions = memo<TopActionProps>(({ tab, setTab }) => {
         icon={MessageSquare}
         onClick={() => {
           // 如果已经在 chat 路径下了，那么就不用再跳转了
-          if (pathname?.startsWith('/classes/chat')) return;
+          if (/^\/classes\/[^/]+\/chat/.test(pathname)) return;
           switchBackToChat();
           setTab(SidebarTabKey.Chat);
         }}

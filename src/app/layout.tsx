@@ -10,8 +10,8 @@ import StyleRegistry from './StyleRegistry';
 const RootLayout = ({ children }: PropsWithChildren) => {
   // get default theme config to use with ssr
   return (
-    <html lang={'ko-kr'} suppressHydrationWarning>
-      <body>
+    <html lang={'ko-kr'}>
+      <body suppressHydrationWarning={true}>
         <ClerkProvider localization={koKR}>
           <StyleRegistry>{children}</StyleRegistry>
         </ClerkProvider>

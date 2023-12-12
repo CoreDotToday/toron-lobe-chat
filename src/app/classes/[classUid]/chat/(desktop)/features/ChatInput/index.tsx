@@ -3,7 +3,7 @@ import { createStyles } from 'antd-style';
 import { Maximize2, Minimize2 } from 'lucide-react';
 import { memo, useState } from 'react';
 
-import ActionBar from '@/app/classes/chat/features/ChatInput/ActionBar';
+import ActionBar from '@/app/classes/[classUid]/chat/features/ChatInput/ActionBar';
 import { CHAT_TEXTAREA_HEIGHT, HEADER_HEIGHT } from '@/const/layoutTokens';
 import { useGlobalStore } from '@/store/global';
 import { useSessionStore } from '@/store/session';

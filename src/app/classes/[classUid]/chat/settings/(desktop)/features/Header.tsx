@@ -3,7 +3,7 @@ import { useRouter } from 'next/navigation';
 import { memo } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import HeaderContent from '@/app/classes/chat/settings/features/HeaderContent';
+import HeaderContent from '@/app/classes/[classUid]/chat/settings/features/HeaderContent';
 import { pathString } from '@/utils/url';
 
 const Header = memo(() => {

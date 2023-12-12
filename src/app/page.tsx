@@ -1,12 +1,3 @@
-import Page from './home';
-
-// import Redirect from './home/Redirect';
-
-const Index = () => (
-  <>
-    <Page />
-    {/* <Redirect /> */}
-  </>
-);
+const Index = () => <>TORON.AI</>;
 
 export default Index;
