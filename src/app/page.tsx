@@ -1,10 +1,11 @@
 import Page from './home';
-import Redirect from './home/Redirect';
+
+// import Redirect from './home/Redirect';
 
 const Index = () => (
   <>
     <Page />
-    <Redirect />
+    {/* <Redirect /> */}
   </>
 );
 

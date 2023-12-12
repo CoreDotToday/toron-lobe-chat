@@ -1,3 +1,4 @@
+import { koKR } from '@clerk/localizations';
 import { ClerkProvider } from '@clerk/nextjs';
 import { Viewport } from 'next';
 import { PropsWithChildren } from 'react';
@@ -11,7 +12,7 @@ const RootLayout = ({ children }: PropsWithChildren) => {
   return (
     <html lang={'ko-kr'} suppressHydrationWarning>
       <body>
-        <ClerkProvider>
+        <ClerkProvider localization={koKR}>
           <StyleRegistry>{children}</StyleRegistry>
         </ClerkProvider>
         <Analytics />
