@@ -67,6 +67,8 @@
   },
   "dependencies": {
     "@ant-design/icons": "^5",
+    "@aws-sdk/client-dynamodb": "^3.478.0",
+    "@aws-sdk/lib-dynamodb": "^3.478.0",
     "@clerk/localizations": "^1.26.12",
     "@clerk/nextjs": "^4.27.3",
     "@icons-pack/react-simple-icons": "^9",
