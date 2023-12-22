@@ -1,6 +1,6 @@
 import { UserProfile, auth, currentUser } from '@clerk/nextjs';
 
-// import Test from '@/app/test';
+import Test from '@/app/test';
 
 const HomePage = async () => {
   const { userId } = auth();
@@ -11,7 +11,7 @@ const HomePage = async () => {
   return (
     <>
       TORON.AI
-      {/* <Test /> */}
+      <Test />
       <UserProfile />
     </>
   );
