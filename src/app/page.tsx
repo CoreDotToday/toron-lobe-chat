@@ -1,5 +1,6 @@
 import { UserProfile, auth, currentUser } from '@clerk/nextjs';
-import Test from 'test';
+
+import Test from '@/app/test';
 
 const HomePage = async () => {
   const { userId } = auth();
