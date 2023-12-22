@@ -4,7 +4,7 @@ import { ddbClient } from './dbConfig';
 
 const marshallOptions = {
   // Whether to convert typeof object to map attribute.
-  convertClassInstanceToMap: false, // false, by default.
+  convertClassInstanceToMap: true, // false, by default.
   // Whether to automatically convert empty strings, blobs, and sets to `null`.
   convertEmptyValues: false, // false, by default.
   // Whether to remove undefined values while marshalling.
