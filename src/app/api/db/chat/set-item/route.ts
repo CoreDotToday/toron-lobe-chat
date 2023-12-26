@@ -16,10 +16,6 @@ export async function POST(req: Request) {
     const { key, data } = JSON.parse(body);
 
     let sk = `CHAT#${key}`;
-    // key가 'LobeChat_Chat'이고 activeTopicId가 있을 때만 sk 수정
-    if (key === 'LobeChat_Chat' && data.activeTopicId) {
-      sk += `@${data.activeTopicId}`;
-    }
 
     const params = {
       TableName: process.env.DYNAMODB_TABLE_NAME,

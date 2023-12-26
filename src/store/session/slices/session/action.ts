@@ -5,6 +5,7 @@ import { StateCreator } from 'zustand/vanilla';
 import { INBOX_SESSION_ID } from '@/const/session';
 import { SESSION_CHAT_URL } from '@/const/url';
 import { sessionService } from '@/services/session';
+import { useClassStore } from '@/store/class';
 import { settingsSelectors, useGlobalStore } from '@/store/global';
 import { SessionStore } from '@/store/session';
 import {
@@ -134,14 +135,16 @@ export const createSessionSlice: StateCreator<
 
     get().activeSession(id);
 
-    router?.push(SESSION_CHAT_URL(id, get().isMobile));
+    const classUid = useClassStore.getState().classUid;
+    router?.push(SESSION_CHAT_URL(id, classUid, get().isMobile));
   },
   switchSession: (sessionId = INBOX_SESSION_ID) => {
     const { isMobile, router } = get();
 
     get().activeSession(sessionId);
 
-    router?.push(SESSION_CHAT_URL(sessionId, isMobile));
+    const classUid = useClassStore.getState().classUid;
+    router?.push(SESSION_CHAT_URL(sessionId, classUid, isMobile));
   },
 
   useFetchSessions: () =>

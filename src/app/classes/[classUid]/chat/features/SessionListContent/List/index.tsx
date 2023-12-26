@@ -4,6 +4,7 @@ import { memo } from 'react';
 import LazyLoad from 'react-lazy-load';
 
 import { SESSION_CHAT_URL } from '@/const/url';
+import { useClassStore } from '@/store/class';
 import { useSessionHydrated, useSessionStore } from '@/store/session';
 import { LobeAgentSession } from '@/types/session';
 
@@ -24,6 +25,7 @@ const SessionList = memo<SessionListProps>(({ dataSource }) => {
   const [activeSession, switchSession] = useSessionStore((s) => [s.activeSession, s.switchSession]);
   const { styles } = useStyles();
   const isInit = useSessionHydrated();
+  const [classUid] = useClassStore((s) => [s.classUid]);
 
   const { mobile } = useResponsive();
 
@@ -34,7 +36,7 @@ const SessionList = memo<SessionListProps>(({ dataSource }) => {
       <LazyLoad className={styles} key={id}>
         <Link
           aria-label={id}
-          href={SESSION_CHAT_URL(id, mobile)}
+          href={SESSION_CHAT_URL(id, classUid, mobile)}
           onClick={(e) => {
             e.preventDefault();
             if (mobile) switchSession(id);

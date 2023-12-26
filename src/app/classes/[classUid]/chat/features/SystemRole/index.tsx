@@ -8,6 +8,7 @@ import { Flexbox } from 'react-layout-kit';
 import useMergeState from 'use-merge-value';
 
 import AgentInfo from '@/features/AgentInfo';
+import { useClassStore } from '@/store/class';
 import { useGlobalStore } from '@/store/global';
 import { useSessionChatInit, useSessionStore } from '@/store/session';
 import { agentSelectors } from '@/store/session/selectors';
@@ -34,6 +35,8 @@ const SystemRole = memo(() => {
     onChange: toggleSystemRole,
     value: showSystemRole,
   });
+
+  const [classUid] = useClassStore((s) => [s.classUid]);
 
   const init = useSessionChatInit();
   const { t } = useTranslation('common');
@@ -85,7 +88,9 @@ const SystemRole = memo(() => {
                     onAvatarClick={() => {
                       setOpen(false);
                       setEditing(false);
-                      router.push(pathString('/classes/chat/settings', { hash: location.hash }));
+                      router.push(
+                        pathString(`/classes/${classUid}/chat/settings`, { hash: location.hash }),
+                      );
                     }}
                     style={{ marginBottom: 16 }}
                   />

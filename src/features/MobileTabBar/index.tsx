@@ -6,6 +6,7 @@ import { rgba } from 'polished';
 import { memo, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { useClassStore } from '@/store/class';
 import { useGlobalStore } from '@/store/global';
 import { SidebarTabKey } from '@/store/global/initialState';
 
@@ -21,6 +22,7 @@ export default memo<{ className?: string }>(({ className }) => {
   const [tab, setTab] = useGlobalStore((s) => [s.sidebarKey, s.switchSideBar]);
   const { t } = useTranslation('common');
   const { styles } = useStyles();
+  const [classUid] = useClassStore((s) => [s.classUid]);
   const router = useRouter();
   const items: MobileTabBarProps['items'] = useMemo(
     () => [
@@ -31,7 +33,7 @@ export default memo<{ className?: string }>(({ className }) => {
         key: SidebarTabKey.Chat,
         onClick: () => {
           setTab(SidebarTabKey.Chat);
-          router.push('/classes/chat');
+          router.push(`/classes/${classUid}/chat`);
         },
         title: t('tab.chat'),
       },

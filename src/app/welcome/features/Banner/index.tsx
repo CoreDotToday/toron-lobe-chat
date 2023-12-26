@@ -8,6 +8,7 @@ import { useTranslation } from 'react-i18next';
 import { Flexbox } from 'react-layout-kit';
 
 import DataImporter from '@/features/DataImporter';
+import { useClassStore } from '@/store/class';
 import { useSessionStore } from '@/store/session';
 
 import Hero from './Hero';
@@ -22,6 +23,7 @@ const Banner = memo<{ mobile?: boolean }>(({ mobile }) => {
     s.router,
     s.isMobile,
   ]);
+  const [classUid] = useClassStore((s) => [s.classUid]);
 
   return (
     <>
@@ -46,7 +48,9 @@ const Banner = memo<{ mobile?: boolean }>(({ mobile }) => {
         </DataImporter>
         <Button
           block={mobile}
-          onClick={() => (isMobile ? router?.push('/classes/chat') : switchBackToChat())}
+          onClick={() =>
+            isMobile ? router?.push(`/classes/${classUid}/chat`) : switchBackToChat()
+          }
           size={'large'}
           type={'primary'}
         >

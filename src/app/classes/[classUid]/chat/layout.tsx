@@ -9,12 +9,15 @@ import {
 } from '@/const/theme';
 import Layout from '@/layout/GlobalLayout';
 
+import ClassUidHandler from './ClassUidHandler';
+
 export default function ChatLayout({ children }: PropsWithChildren) {
   const cookieStore = cookies();
   const lang = cookieStore.get(LOBE_LOCALE_COOKIE);
   const appearance = cookieStore.get(LOBE_THEME_APPEARANCE);
   const neutralColor = cookieStore.get(LOBE_THEME_NEUTRAL_COLOR);
   const primaryColor = cookieStore.get(LOBE_THEME_PRIMARY_COLOR);
+
   return (
     <Layout
       defaultAppearance={appearance?.value}
@@ -22,6 +25,7 @@ export default function ChatLayout({ children }: PropsWithChildren) {
       defaultNeutralColor={neutralColor?.value as any}
       defaultPrimaryColor={primaryColor?.value as any}
     >
+      <ClassUidHandler />
       {children}
     </Layout>
   );

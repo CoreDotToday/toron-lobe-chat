@@ -2,6 +2,7 @@ import { ChatListProps } from '@lobehub/ui';
 import { useResponsive } from 'antd-style';
 import { useRouter } from 'next/navigation';
 
+import { useClassStore } from '@/store/class';
 import { useGlobalStore } from '@/store/global';
 import { useSessionStore } from '@/store/session';
 import { sessionSelectors } from '@/store/session/selectors';
@@ -24,6 +25,7 @@ export const useAvatarsClick = (): ChatListProps['onAvatarsClick'] => {
   const [toggleSystemRole] = useGlobalStore((s) => [s.toggleSystemRole]);
   const { mobile } = useResponsive();
   const router = useRouter();
+  const [classUid] = useClassStore((s) => [s.classUid]);
 
   return (role) => {
     switch (role) {
@@ -32,7 +34,9 @@ export const useAvatarsClick = (): ChatListProps['onAvatarsClick'] => {
           isInbox
             ? router.push('/settings/agent')
             : mobile
-              ? router.push(pathString('/classes/chat/settings', { hash: location.hash }))
+              ? router.push(
+                  pathString(`/classes/${classUid}/chat/settings`, { hash: location.hash }),
+                )
               : toggleSystemRole(true);
       }
     }

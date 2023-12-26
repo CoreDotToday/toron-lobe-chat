@@ -8,6 +8,7 @@ import { useTranslation } from 'react-i18next';
 import { Flexbox } from 'react-layout-kit';
 
 import { DESKTOP_HEADER_ICON_SIZE } from '@/const/layoutTokens';
+import { useClassStore } from '@/store/class';
 import { useGlobalStore } from '@/store/global';
 import { useSessionChatInit, useSessionStore } from '@/store/session';
 import { agentSelectors, sessionSelectors } from '@/store/session/selectors';
@@ -33,6 +34,8 @@ const Header = memo(() => {
       agentSelectors.currentAgentPlugins(s),
     ],
   );
+
+  const [classUid] = useClassStore((s) => [s.classUid]);
 
   const [showAgentSettings, toggleConfig] = useGlobalStore((s) => [
     s.preference.showChatSideBar,
@@ -62,7 +65,9 @@ const Header = memo(() => {
               onClick={() =>
                 isInbox
                   ? router.push('/settings/agent')
-                  : router.push(pathString('/classes/chat/settings', { hash: location.hash }))
+                  : router.push(
+                      pathString(`/classes/${classUid}/chat/settings`, { hash: location.hash }),
+                    )
               }
               size={40}
               title={title}
@@ -93,7 +98,9 @@ const Header = memo(() => {
             <ActionIcon
               icon={Settings}
               onClick={() => {
-                router.push(pathString('/classes/chat/settings', { hash: location.hash }));
+                router.push(
+                  pathString(`/classes/${classUid}/chat/settings`, { hash: location.hash }),
+                );
               }}
               size={DESKTOP_HEADER_ICON_SIZE}
               title={t('header.session', { ns: 'setting' })}

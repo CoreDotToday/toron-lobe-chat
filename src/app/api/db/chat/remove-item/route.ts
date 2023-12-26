@@ -14,17 +14,12 @@ export async function PATCH(req: Request) {
   try {
     const url = new URL(req.url, `http://${req.headers.get('host')}`);
     const key = url.searchParams.get('key');
-    const activeTopicId = url.searchParams.get('activeTopicId');
 
     if (!key) {
       return NextResponse.json({ message: 'Key is required' }, { status: 400 });
     }
 
     let sk = `CHAT#${key}`;
-    // key가 'LobeChat_Chat'이고 activeTopicId가 있을 때만 sk 수정
-    if (key === 'LobeChat_Chat' && activeTopicId) {
-      sk += `@${activeTopicId}`;
-    }
 
     const params = {
       TableName: process.env.DYNAMODB_TABLE_NAME,

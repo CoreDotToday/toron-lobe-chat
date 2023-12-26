@@ -6,6 +6,7 @@ import { memo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { MOBILE_HEADER_ICON_SIZE } from '@/const/layoutTokens';
+import { useClassStore } from '@/store/class';
 import { useGlobalStore } from '@/store/global';
 import { useSessionStore } from '@/store/session';
 import { agentSelectors, sessionSelectors } from '@/store/session/selectors';
@@ -25,6 +26,8 @@ const MobileHeader = memo(() => {
 
   const [toggleConfig] = useGlobalStore((s) => [s.toggleMobileTopic]);
 
+  const [classUid] = useClassStore((s) => [s.classUid]);
+
   const displayTitle = isInbox ? t('inbox.title') : title;
 
   const items: MenuProps['items'] = [
@@ -38,14 +41,15 @@ const MobileHeader = memo(() => {
       icon: <Icon icon={Settings} />,
       key: 'settings',
       label: t('header.session', { ns: 'setting' }),
-      onClick: () => router.push(pathString('/classes/chat/settings', { hash: location.hash })),
+      onClick: () =>
+        router.push(pathString(`/classes/${classUid}/chat/settings`, { hash: location.hash })),
     },
   ].filter(Boolean) as MenuProps['items'];
 
   return (
     <MobileNavBar
       center={<MobileNavBarTitle title={displayTitle} />}
-      onBackClick={() => router.push('/classes/chat')}
+      onBackClick={() => router.push(`/classes/${classUid}/chat`)}
       right={
         <>
           <ActionIcon icon={Clock3} onClick={() => toggleConfig()} size={MOBILE_HEADER_ICON_SIZE} />

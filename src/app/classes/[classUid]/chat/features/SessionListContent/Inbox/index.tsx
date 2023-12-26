@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { DEFAULT_INBOX_AVATAR } from '@/const/meta';
 import { INBOX_SESSION_ID } from '@/const/session';
 import { SESSION_CHAT_URL } from '@/const/url';
+import { useClassStore } from '@/store/class';
 import { useSessionStore } from '@/store/session';
 
 import ListItem from '../ListItem';
@@ -14,11 +15,12 @@ const Inbox = memo(() => {
   const { t } = useTranslation('chat');
   const { mobile } = useResponsive();
   const [activeId, switchSession] = useSessionStore((s) => [s.activeId, s.switchSession]);
+  const [classUid] = useClassStore((s) => [s.classUid]);
 
   return (
     <Link
       aria-label={t('inbox.title')}
-      href={SESSION_CHAT_URL(INBOX_SESSION_ID, mobile)}
+      href={SESSION_CHAT_URL(INBOX_SESSION_ID, classUid, mobile)}
       onClick={(e) => {
         e.preventDefault();
         switchSession(INBOX_SESSION_ID);
