@@ -29,6 +29,7 @@ export const createHyperStorage = <T extends object>(
         body: JSON.stringify({
           key: key,
           data: newValue.state,
+          version: newValue.version,
         }),
       });
 
@@ -54,11 +55,17 @@ export const createHyperStorage = <T extends object>(
   };
 
   return {
-    getItem: async (name): Promise<StorageValue<T>> => {
+    getItem: async (name, version = null): Promise<StorageValue<T>> => {
       const state: any = {};
 
+      // API 라우트 호출을 위한 URL 구성
+      let url = `/api/db/chat/get-item?key=${encodeURIComponent(name)}`;
+      if (version) {
+        url += `&version=${encodeURIComponent(version)}`;
+      }
+
       // DynamoDB에서 데이터를 가져오기 위해 API 라우트 호출
-      const response = await fetch(`/api/db/chat/get-item?key=${name}`);
+      const response = await fetch(url);
       if (!response.ok) {
         throw new Error('Failed to fetch data from DynamoDB');
       }
@@ -75,7 +82,6 @@ export const createHyperStorage = <T extends object>(
         if (urlState) {
           for (const [k, v] of Object.entries(urlState.state)) {
             const key = getStateKeyFromStorageKey(k, 'url');
-            // 当存在 UrlSelector 逻辑，且 key 有效时，才将状态加入终态 state
             if (hasUrl && key) {
               state[key] = v;
             }
@@ -83,7 +89,8 @@ export const createHyperStorage = <T extends object>(
         }
       }
 
-      return { state: data, version: undefined }; // version 관리가 필요하다면 수정
+      // version 정보 포함하여 반환
+      return { state: data, version: data.version || undefined };
     },
 
     removeItem: async (key) => {
