@@ -2,7 +2,7 @@ import { PutCommand } from '@aws-sdk/lib-dynamodb';
 import { currentUser } from '@clerk/nextjs';
 import { NextResponse } from 'next/server';
 
-import { ddbDocClient } from '../db/ddbDocClient';
+import { ddbDocClient } from '@/app/api/db/ddbDocClient';
 
 export async function POST() {
   const currentUserData = await currentUser();
