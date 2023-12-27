@@ -13,13 +13,11 @@ export async function POST(req: Request) {
   }
   try {
     const body = await req.text();
-    const { key, data, version } = JSON.parse(body);
-
-    let sk = `CHAT#${key}@${version}`;
+    const { key, data } = JSON.parse(body);
 
     const params = {
       TableName: process.env.DYNAMODB_TABLE_NAME,
-      Item: { pk: `USER#${currentUserData.id}`, sk, ...data },
+      Item: { pk: `USER#${currentUserData.id}`, sk: `CHAT#${key}`, ...data },
     };
 
     await ddbDocClient.send(new PutCommand(params));
