@@ -2,48 +2,45 @@ import { Metadata } from 'next';
 
 import pkg from '../../package.json';
 
-const title = 'Toron.AI';
 const { description, homepage } = pkg;
-const metadata: Metadata = {
+
+const siteConfig = {
+  name: 'Toron.AI',
+  description: 'Discussion with Toron AI - 토론 AI와 함께 토론하세요',
+  mainNav: [
+    {
+      title: 'Home',
+      href: '/',
+    },
+  ],
+};
+
+export const metadata: Metadata = {
   appleWebApp: {
     statusBarStyle: 'black-translucent',
-    title,
+    title: siteConfig.name,
   },
-  description,
+  title: {
+    default: siteConfig.name,
+    template: `%s - ${siteConfig.name}`,
+  },
+  description: description,
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: 'white' },
+    { media: '(prefers-color-scheme: dark)', color: 'black' },
+  ],
   icons: {
-    apple:
-      'https://registry.npmmirror.com/@lobehub/assets-favicons/latest/files/assets/apple-touch-icon.png',
-    icon: 'https://registry.npmmirror.com/@lobehub/assets-favicons/latest/files/assets/favicon-32x32.png',
-    shortcut:
-      'https://registry.npmmirror.com/@lobehub/assets-favicons/latest/files/assets/favicon.ico',
+    icon: '/toronai_logo.png',
   },
   manifest: '/manifest.json',
   openGraph: {
-    description: description,
-    images: [
-      {
-        alt: title,
-        height: 360,
-        url: 'https://registry.npmmirror.com/@lobehub/assets-favicons/latest/files/assets/og-480x270.png',
-        width: 480,
-      },
-      {
-        alt: title,
-        height: 720,
-        url: 'https://registry.npmmirror.com/@lobehub/assets-favicons/latest/files/assets/og-960x540.png',
-        width: 960,
-      },
-    ],
-    locale: 'en-US',
-    siteName: title,
-    title: title,
-    type: 'website',
+    images: ['/og.png'],
     url: homepage,
-  },
-
-  title: {
-    default: title,
-    template: '%s · Toron.AI',
+    siteName: siteConfig.name,
+    title: siteConfig.name,
+    description: description,
+    locale: 'ko_KR',
+    type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
@@ -52,7 +49,7 @@ const metadata: Metadata = {
     images: [
       'https://registry.npmmirror.com/@lobehub/assets-favicons/latest/files/assets/og-960x540.png',
     ],
-    title,
+    title: siteConfig.name,
   },
 };
 

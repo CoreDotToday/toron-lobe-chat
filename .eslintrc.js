@@ -18,5 +18,7 @@ config.rules['unicorn/prefer-spread'] = 0;
 config.rules['sort-keys-fix/sort-keys-fix'] = 0;
 config.rules['react/jsx-sort-props'] = 0;
 config.rules['typescript-sort-keys/interface'] = 0;
+config.rules['@typescript-eslint/no-unused-vars'] = 1;
+config.rules['@typescript-eslint/no-use-before-define'] = 0;
 
 module.exports = config;
