@@ -19,7 +19,7 @@ export default function Home() {
           </p>
           <div className="flex gap-2 mt-8">
             <Link
-              href="/dashboard"
+              href="/classes/asdf"
               className="flex content-center gap-2 px-4 py-2 font-semibold text-white transition-colors duration-200 rounded-lg bg-primary-600 hover:bg-primary-700"
             >
               시작하기
