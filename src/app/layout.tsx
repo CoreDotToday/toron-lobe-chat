@@ -17,7 +17,7 @@ import { PropsWithChildren } from 'react';
 import Analytics from '@/components/Analytics';
 
 import StyleRegistry from './StyleRegistry';
-import './global.css';
+import './globals.css';
 import { Discord, Docs, Github, Twitter } from './icons';
 
 const inter = Inter({

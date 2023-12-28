@@ -20,5 +20,7 @@ config.rules['react/jsx-sort-props'] = 0;
 config.rules['typescript-sort-keys/interface'] = 0;
 config.rules['@typescript-eslint/no-unused-vars'] = 1;
 config.rules['@typescript-eslint/no-use-before-define'] = 0;
+config.rules['simple-import-sort/exports'] = 0;
+config.rules['@typescript-eslint/no-empty-interface'] = 0;
 
 module.exports = config;
