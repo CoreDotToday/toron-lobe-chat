@@ -22,5 +22,6 @@ config.rules['@typescript-eslint/no-unused-vars'] = 1;
 config.rules['@typescript-eslint/no-use-before-define'] = 0;
 config.rules['simple-import-sort/exports'] = 0;
 config.rules['@typescript-eslint/no-empty-interface'] = 0;
+config.rules['no-empty-pattern'] = 0;
 
 module.exports = config;
