@@ -25,6 +25,7 @@ function ChatComponent({ roomUid }: ChatComponentProps) {
   // State for storing the extracted variables
   const { user } = useUser();
   const userId = user?.id;
+  const userName = user?.fullName;
 
   const [socket, setSocket] = useState<WebSocket | null>(null);
   const [isConnected, setIsConnected] = useState(false);
@@ -39,7 +40,7 @@ function ChatComponent({ roomUid }: ChatComponentProps) {
   const [reconnectAttempts, setReconnectAttempts] = useState(0);
   const MAX_RECONNECT_ATTEMPTS = 5;
 
-  console.log(messages, messageQueue);
+  console.log(messages);
 
   // 오디오와 텍스트 메시지를 하나의 큐로 처리하기 위한 함수
   const processQueueItem = useCallback(() => {
@@ -57,7 +58,25 @@ function ChatComponent({ roomUid }: ChatComponentProps) {
 
         audio.play();
       } else {
-        setMessages((prevMessages) => [...prevMessages, currentMessage]);
+        setMessages((prevMessages) => {
+          // stream_uid가 같은 메시지 찾기
+          const existingMessageIndex = prevMessages.findIndex(
+            (m) => m.stream_uid === currentMessage.stream_uid,
+          );
+
+          if (existingMessageIndex !== -1) {
+            // 이미 존재하는 메시지 업데이트
+            const updatedMessages = [...prevMessages];
+            updatedMessages[existingMessageIndex] = {
+              ...updatedMessages[existingMessageIndex],
+              msg: updatedMessages[existingMessageIndex].msg + currentMessage.msg,
+            };
+            return updatedMessages;
+          } else {
+            // 새로운 메시지 추가
+            return [...prevMessages, currentMessage];
+          }
+        });
         setMessageQueue((currentQueue) => currentQueue.slice(1));
       }
     }
@@ -127,13 +146,31 @@ function ChatComponent({ roomUid }: ChatComponentProps) {
         user_uid: userId,
         room_uid: roomUid,
         subject: 'subject',
-        questioner: '고구마',
+        questioner: userName || '사용자',
         receiver_uid: 'hyscent',
         msg: message,
         return_voice: 1,
       };
       socket.send(JSON.stringify(msgData));
       setMessage('');
+      setMessages((prevMessages) => {
+        const timestamp = Date.now() / 1000;
+        return [
+          ...prevMessages,
+          {
+            room_uid: roomUid,
+            client_num: -1,
+            connection_id: 'userInput',
+            msg: message,
+            stream_uid: `userInput-${timestamp}`,
+            sent_uid: userId || null,
+            cAt: `${timestamp}`,
+            return_voice: 0,
+            voice_url: null,
+            voice_length: null,
+          },
+        ];
+      });
     }
   };
 
@@ -171,11 +208,14 @@ function ChatComponent({ roomUid }: ChatComponentProps) {
       ) : (
         <div className="flex flex-wrap gap-2">Loading...</div>
       )}
-      <div className="flex flex-wrap gap-2">
+      <div className="flex flex-col flex-wrap gap-2">
         {messages.map((msg, index) => (
-          <span key={index} className="">
+          <div
+            key={index}
+            className={msg.connection_id === 'userInput' ? `text-right ml-auto` : ``}
+          >
             {msg.msg}
-          </span>
+          </div>
         ))}
       </div>
     </div>
