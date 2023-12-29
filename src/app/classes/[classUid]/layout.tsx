@@ -12,17 +12,17 @@ const pipelines: NavSectionItems = {
   items: [
     {
       label: 'Github의 이해',
-      href: '/classes/shinhan3/room/github/class1',
+      href: '/classes/shinhan3/room/github?subject=class1',
       icon: 'textSelect',
     },
     {
       label: 'Github 배포',
-      href: '/classes/shinhan3/room/github/class2',
+      href: '/classes/shinhan3/room/github?subject=class2',
       icon: 'braces',
     },
     {
       label: 'DevOps',
-      href: '/classes/shinhan3/room/github/class3',
+      href: '/classes/shinhan3/room/github?subject=class3',
       icon: 'checkCircle',
     },
   ],
@@ -34,32 +34,32 @@ const structuredData: NavSectionItems = {
   items: [
     {
       label: 'AWS 알아보기',
-      href: '/classes/shinhan3/room/aws/class1',
+      href: '/classes/shinhan3/room/aws?subject=class1',
       icon: 'textSelect',
     },
     {
       label: 'AWS 컴퓨팅',
-      href: '/classes/shinhan3/room/aws/computing',
+      href: '/classes/shinhan3/room/aws?subject=computing',
       icon: 'invoice',
     },
     {
       label: 'AWS 네트워킹',
-      href: '/classes/shinhan3/room/aws/networking',
+      href: '/classes/shinhan3/room/aws?subject=networking',
       icon: 'receipt',
     },
     {
       label: 'AWS 스토리지',
-      href: '/classes/shinhan3/room/aws/storage',
+      href: '/classes/shinhan3/room/aws?subject=storage',
       icon: 'creditCard',
     },
     {
       label: 'AWS 데이터베이스',
-      href: '/classes/shinhan3/room/aws/database',
+      href: '/classes/shinhan3/room/aws?subject=database',
       icon: 'creditCard',
     },
     {
       label: 'AWS Lambda',
-      href: '/classes/shinhan3/room/aws/lambda',
+      href: '/classes/shinhan3/room/aws?subject=lambda',
       icon: 'creditCard',
     },
   ],

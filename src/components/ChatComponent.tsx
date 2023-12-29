@@ -1,7 +1,7 @@
 'use client';
 
 import { useUser } from '@clerk/nextjs';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 // 메시지 타입 정의
 interface Message {
@@ -40,53 +40,54 @@ function ChatComponent({ roomUid }: ChatComponentProps) {
   const [reconnectAttempts, setReconnectAttempts] = useState(0);
   const MAX_RECONNECT_ATTEMPTS = 5;
 
-  console.log(messages);
+  console.log(messageQueue);
 
   // 오디오와 텍스트 메시지를 하나의 큐로 처리하기 위한 함수
-  const processQueueItem = useCallback(() => {
-    if (messageQueue.length > 0 && !isAudioPlaying) {
-      const currentMessage = messageQueue[0];
+  const processQueueItem = () => {
+    if (messageQueue.length === 0 || isAudioPlaying) return;
 
-      if (currentMessage.return_voice === 1 && currentMessage.voice_url) {
-        const audio = new Audio(currentMessage.voice_url);
-        setIsAudioPlaying(true);
+    const currentMessage = messageQueue[0];
 
-        audio.addEventListener('ended', () => {
-          setIsAudioPlaying(false);
-          setMessageQueue((currentQueue) => currentQueue.slice(1));
-        });
+    if (currentMessage.return_voice === 1 && currentMessage.voice_url) {
+      const audio = new Audio(currentMessage.voice_url);
+      setIsAudioPlaying(true);
 
-        audio.play();
-      } else {
-        setMessages((prevMessages) => {
-          // stream_uid가 같은 메시지 찾기
-          const existingMessageIndex = prevMessages.findIndex(
-            (m) => m.stream_uid === currentMessage.stream_uid,
-          );
-
-          if (existingMessageIndex !== -1) {
-            // 이미 존재하는 메시지 업데이트
-            const updatedMessages = [...prevMessages];
-            updatedMessages[existingMessageIndex] = {
-              ...updatedMessages[existingMessageIndex],
-              msg: updatedMessages[existingMessageIndex].msg + currentMessage.msg,
-            };
-            return updatedMessages;
-          } else {
-            // 새로운 메시지 추가
-            return [...prevMessages, currentMessage];
-          }
-        });
+      audio.addEventListener('ended', () => {
+        setIsAudioPlaying(false);
         setMessageQueue((currentQueue) => currentQueue.slice(1));
-      }
+      });
+
+      audio.play();
+    } else {
+      setMessages((prevMessages) => {
+        // stream_uid가 같은 메시지 찾기
+        const existingMessageIndex = prevMessages.findIndex(
+          (m) => m.stream_uid === currentMessage.stream_uid,
+        );
+
+        if (existingMessageIndex !== -1) {
+          // 이미 존재하는 메시지 업데이트
+          const updatedMessages = [...prevMessages];
+          updatedMessages[existingMessageIndex] = {
+            ...updatedMessages[existingMessageIndex],
+            msg: updatedMessages[existingMessageIndex].msg + currentMessage.msg,
+          };
+          return updatedMessages;
+        } else {
+          // 새로운 메시지 추가
+          return [...prevMessages, currentMessage];
+        }
+      });
+      setMessageQueue((currentQueue) => currentQueue.slice(1));
     }
-  }, [messageQueue, isAudioPlaying]);
+  };
 
   useEffect(() => {
+    // 메시지 큐에 메시지가 있고 오디오가 재생 중이지 않을 때만 processQueueItem 함수 호출
     if (messageQueue.length > 0 && !isAudioPlaying) {
       processQueueItem();
     }
-  }, [messageQueue, isAudioPlaying, processQueueItem]);
+  }, [messageQueue, isAudioPlaying]);
 
   const connectWebSocket = () => {
     if (reconnectAttempts >= MAX_RECONNECT_ATTEMPTS) {
@@ -128,50 +129,56 @@ function ChatComponent({ roomUid }: ChatComponentProps) {
 
   // WebSocket 연결
   useEffect(() => {
-    if (userId) {
-      connectWebSocket();
-    }
+    if (!userId) return;
+    connectWebSocket();
 
     return () => {
       if (socket) {
         socket.close();
       }
     };
-  }, [userId]);
+  }, [
+    userId,
+    setShouldReconnect,
+    setIsConnected,
+    setReconnectAttempts,
+    setMessageQueue,
+    setSocket,
+  ]);
 
   const sendMessage = () => {
-    if (socket && isConnected) {
-      const msgData = {
-        action: 'sendmessage',
-        user_uid: userId,
-        room_uid: roomUid,
-        subject: 'subject',
-        questioner: userName || '사용자',
-        receiver_uid: 'hyscent',
-        msg: message,
-        return_voice: 1,
-      };
-      socket.send(JSON.stringify(msgData));
-      setMessage('');
-      setMessages((prevMessages) => {
-        const timestamp = Date.now() / 1000;
-        return [
-          ...prevMessages,
-          {
-            room_uid: roomUid,
-            client_num: -1,
-            connection_id: 'userInput',
-            msg: message,
-            stream_uid: `userInput-${timestamp}`,
-            sent_uid: userId || null,
-            cAt: `${timestamp}`,
-            return_voice: 0,
-            voice_url: null,
-            voice_length: null,
-          },
-        ];
-      });
-    }
+    if (!socket || !isConnected) return;
+
+    const msgData = {
+      action: 'sendmessage',
+      user_uid: userId,
+      room_uid: roomUid,
+      subject: 'subject',
+      questioner: userName || '사용자',
+      receiver_uid: 'hyscent',
+      msg: message,
+      return_voice: 1,
+    };
+    socket.send(JSON.stringify(msgData));
+    setMessage('');
+    setMessages((prevMessages) => {
+      const timestamp = Date.now() / 1000;
+      return [
+        ...prevMessages,
+        {
+          room_uid: roomUid,
+          client_num: -1,
+          connection_id: 'userInput',
+          msg: message,
+          stream_uid: `userInput-${timestamp}`,
+          sent_uid: userId || null,
+          cAt: `${timestamp}`,
+          return_voice: 0,
+          voice_url: null,
+          voice_length: null,
+        },
+      ];
+    });
   };
 
   const handleSubmit = (event: React.FormEvent) => {
